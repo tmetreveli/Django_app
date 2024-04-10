@@ -1,6 +1,6 @@
 from .models import Book
 from django.http import JsonResponse
-# Create your views here.
+from django.shortcuts import get_object_or_404
 
 
 def list_books(request):
@@ -20,7 +20,7 @@ def list_books(request):
 
 
 def book_detail(request, product_id):
-    book = Book.objects.get(pk=product_id)
+    book = get_object_or_404(Book, pk=product_id)
     json_book = {
             "name": book.name,
             "page_count": book.page_count,
