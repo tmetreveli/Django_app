@@ -1,7 +1,8 @@
 from .models import Book
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.http import Http404
+from django.core import serializers
 
 
 def list_books(request):
@@ -23,3 +24,9 @@ def book_detail(request, product_id):
             "price": book.price,
         }
     return JsonResponse(json_book, safe=False)
+
+def show(request):
+    page = int(request.GET.get('page', 1))
+    page_size = 3
+    books = Book.objects.all()[(page - 1) * page_size: page * page_size]
+    return render(request, "index.html", {"books": books})
