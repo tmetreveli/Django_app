@@ -9,7 +9,7 @@ class Book(models.Model):
     category = models.CharField(max_length=255, verbose_name=_("Book category"))
     author_name = models.CharField(max_length=255, verbose_name=_("Author Name"))
     price = models.DecimalField(decimal_places=3, max_digits=5, verbose_name=_("Price"))
-    image = models.ImageField(verbose_name=_("Image"))
+    image = models.ImageField(upload_to='images/', verbose_name=_("Image"))
 
     def __str__(self):
         return self.name
