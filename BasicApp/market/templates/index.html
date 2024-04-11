@@ -47,7 +47,7 @@
 <h1>My First Heading</h1>
 <p>My first paragraph.</p>
 <ol>
-    {% for book in books %}
+    {% for book in page.object_list %}
     <li>
         <h2>{{ book.name }}</h2>
         <p>Author: {{ book.author_name }}</p>
@@ -57,9 +57,19 @@
         <a href="{% url 'market:book_detailed_view' book.pk %}">
             <img src="{{ book.image.url }}" alt="Book cover for {{ book.name }}">
         </a>
+
     </li>
     {% endfor %}
 </ol>
+{% if page.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="{% url 'market:show'%}?page={{page.previous_page_number}}">previous</a>
+        {% endif %}
 
+{% if page.has_next %}
+
+            <a href="?page=1">&laquo; first</a>
+            <a href="{% url 'market:show'%}?page={{page.next_page_number}}">next</a>
+        {% endif %}
 </body>
 </html>

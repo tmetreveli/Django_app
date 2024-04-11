@@ -2,7 +2,7 @@ from .models import Book
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.http import Http404
-from django.core import serializers
+from django.core.paginator import Paginator
 
 
 def list_books(request):
@@ -30,7 +30,10 @@ def book_detailed_view(request, id):
     book = get_object_or_404(Book, pk=id)
     return render(request, "detail_book.html", {"book": book})
 def show(request):
-    page = int(request.GET.get('page', 1))
-    page_size = 3
-    books = Book.objects.all()[(page - 1) * page_size: page * page_size]
-    return render(request, "index.html", {"books": books})
+    queryset = Book.objects.all()
+    paginator = Paginator(queryset, 2)
+    print(paginator.num_pages)
+    page_num = int(request.GET.get('page', 1))
+    page = paginator.get_page(number=page_num)
+    print(page.has_next())
+    return render(request, "index.html", {"page": page})
