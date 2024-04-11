@@ -53,7 +53,8 @@
         <p>Author: {{ book.author_name }}</p>
         <p>Category: {{ book.category }}</p>
         <!-- Display the image -->
-        <a href="/details/{{book.id}}">
+<!--        <a href="/details/{{book.id}}">-->
+        <a href="{% url 'market:book_detailed_view' book.pk %}">
             <img src="{{ book.image.url }}" alt="Book cover for {{ book.name }}">
         </a>
     </li>
