@@ -25,6 +25,10 @@ def book_detail(request, product_id):
         }
     return JsonResponse(json_book, safe=False)
 
+def book_detailed_view(request, id):
+    # product_id = request.GET.get('id')
+    book = get_object_or_404(Book, pk=id)
+    return render(request, "detail_book.html", {"book": book})
 def show(request):
     page = int(request.GET.get('page', 1))
     page_size = 3

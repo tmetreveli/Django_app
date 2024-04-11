@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details</title>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Book Details</h1>
+    </div>
+
+    <!-- Book Information -->
+    <div class="book-info">
+        <span>Name:</span> {{ book.name }}
+    </div>
+    <div class="book-info">
+        <span>Page Count:</span> {{ book.page_count }}
+    </div>
+    <div class="book-info">
+        <span>Category:</span> {{ book.category }}
+    </div>
+    <div class="book-info">
+        <span>Author Name:</span> {{ book.author_name }}
+    </div>
+    <div class="book-info">
+        <span>Price:</span> ${{ book.price }}
+    </div>
+    <div class="book-info">
+        <img src="{{ book.image.url }}" alt="Book cover for {{ book.name }}">
+    </div>
+</div>
+
+</body>
+</html>

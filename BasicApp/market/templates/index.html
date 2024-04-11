@@ -53,7 +53,7 @@
         <p>Author: {{ book.author_name }}</p>
         <p>Category: {{ book.category }}</p>
         <!-- Display the image -->
-        <a href="/book_list/{{book.id}}">
+        <a href="/details/{{book.id}}">
             <img src="{{ book.image.url }}" alt="Book cover for {{ book.name }}">
         </a>
     </li>
