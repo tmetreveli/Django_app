@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Details</title>
-
 </head>
 <body>
 
@@ -21,11 +20,27 @@
         <span>Page Count:</span> {{ book.page_count }}
     </div>
     <div class="book-info">
-        <span>Category:</span> {{ book.category.name }}
+        <span>Category:</span> 
+        {% with categories=book.category.all %}
+            {% if categories %}
+                {% for category in categories %}
+                    {{ category.get_name_display }}{% if not forloop.last %}, {% endif %}
+                {% endfor %}
+            {% else %}
+                None
+            {% endif %}
+        {% endwith %}
     </div>
+    
     <div class="book-info">
-        <span>Author Name:</span> {{ book.author }}
+        <span>Author Name:</span> 
+        {% if book.author %}
+            {{ book.author.name }}
+        {% else %}
+            Unknown
+        {% endif %}
     </div>
+    
     <div class="book-info">
         <span>Price:</span> ${{ book.price }}
     </div>

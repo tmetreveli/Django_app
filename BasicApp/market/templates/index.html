@@ -50,14 +50,27 @@
     {% for book in page.object_list %}
     <li>
         <h2>{{ book.name }}</h2>
-        <p>Author: {{ book.author }}</p>
-        <p>Category: {{ book.category.name }}</p>
-        <!-- Display the image -->
-<!--        <a href="/details/{{book.id}}">-->
+        <p> {% if book.author.name %}
+            Author: {{ book.author.name }}
+            {% else %}
+            Author: Undefined
+            {% endif %}
+        </p>
+        <p>
+            Categories: 
+            {% with categories=book.category.all %}
+                {% if categories %}
+                    {% for category in categories %}
+                        {{ category.get_name_display }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                {% else %}
+                    Undefined
+                {% endif %}
+            {% endwith %}
+        </p>
         <a href="{% url 'market:book_detailed_view' book.pk %}">
             <img src="{{ book.image.url }}" alt="Book cover for {{ book.name }}">
         </a>
-
     </li>
     {% endfor %}
 </ol>

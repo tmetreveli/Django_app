@@ -16,13 +16,14 @@ def list_books(request):
 
 def book_detail(request, product_id):
     book = get_object_or_404(Book, pk=product_id)
+    categories = book.category.all().values_list('name', flat=True)
     json_book = {
             "name": book.name,
             "page_count": book.page_count,
-            "category": book.category.name,
-            "author_name": book.author,
+            "category": list(categories),
+            "author_name": book.author.name if book.author else None,
             "price": book.price,
-            "cover": book.cover
+            "cover": book.get_cover_display()
         }
     return JsonResponse(json_book, safe=False)
 
