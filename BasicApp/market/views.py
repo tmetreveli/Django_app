@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 
 def list_books(request):
     try:
-        books = Book.objects.filter().values_list('name', 'page_count', 'author', 'price', 'image', 'cover',  'category',)
+        books = Book.objects.filter().values_list('name', 'page_count', 'author', 'price', 'image', 'cover', 'category')
     except Book.DoesNotExist:
         raise Http404("No Book matches the given query.")
 
@@ -27,9 +27,11 @@ def book_detail(request, product_id):
         }
     return JsonResponse(json_book, safe=False)
 
+
 def book_detailed_view(request, id):
     book = get_object_or_404(Book, pk=id)
     return render(request, "detail_book.html", {"book": book})
+
 
 def show(request):
     queryset = Book.objects.all()
