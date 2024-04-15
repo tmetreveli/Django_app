@@ -1,4 +1,4 @@
-from .models import Book
+from market.models import Book
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.http import Http404
@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 
 def list_books(request):
     try:
-        books = Book.objects.filter().values_list('name', 'page_count', 'category', 'author_name', 'price', 'image')
+        books = Book.objects.filter().values_list('name', 'page_count', 'author', 'price', 'image', 'cover',  'category',)
     except Book.DoesNotExist:
         raise Http404("No Book matches the given query.")
 
@@ -19,16 +19,17 @@ def book_detail(request, product_id):
     json_book = {
             "name": book.name,
             "page_count": book.page_count,
-            "category": book.category,
-            "author_name": book.author_name,
+            "category": book.category.name,
+            "author_name": book.author,
             "price": book.price,
+            "cover": book.cover
         }
     return JsonResponse(json_book, safe=False)
 
 def book_detailed_view(request, id):
-    # product_id = request.GET.get('id')
     book = get_object_or_404(Book, pk=id)
     return render(request, "detail_book.html", {"book": book})
+
 def show(request):
     queryset = Book.objects.all()
     paginator = Paginator(queryset, 2)
